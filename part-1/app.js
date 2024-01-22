@@ -1,29 +1,67 @@
-function doStep1(init, callback) {
-    const result = init + 1;
-    callback(result);
+function doStep1(init) {
+  return new Promise((resolve) => {
+      const result = init + 1;
+      resolve(result);
+  });
+}
+
+function doStep2(init) {
+  return new Promise((resolve) => {
+      const result = init + 2;
+      resolve(result);
+  });
+}
+
+function doStep3(init) {
+  return new Promise((resolve) => {
+      const result = init + 3;
+      resolve(result);
+  });
+}
+
+async function doOperation() {
+  try {
+      const result1 = await doStep1(0);
+      const result2 = await doStep2(result1);
+      const result3 = await doStep3(result2);
+
+      console.log(`result: ${result3}`);
+  } catch (error) {
+      console.error(`Error: ${error}`);
   }
+}
+
+doOperation();
+
+
+
+
+// function doStep1(init, callback) {
+//     const result = init + 1;
+//     callback(result);
+//   }
   
-  function doStep2(init, callback) {
-    const result = init + 2;
-    callback(result);
-  }
+//   function doStep2(init, callback) {
+//     const result = init + 2;
+//     callback(result);
+//   }
   
-  function doStep3(init, callback) {
-    const result = init + 3;
-    callback(result);
-  }
+//   function doStep3(init, callback) {
+//     const result = init + 3;
+//     callback(result);
+//   }
   
-  function doOperation() {
-    doStep1(0, (result1) => {
-      doStep2(result1, (result2) => {
-        doStep3(result2, (result3) => {
-          console.log(`result: ${result3}`);
-        });
-      });
-    });
-  }
+//   function doOperation() {
+//     doStep1(0, (result1) => {
+//       doStep2(result1, (result2) => {
+//         doStep3(result2, (result3) => {
+//           console.log(`result: ${result3}`);
+//         });
+//       });
+//     });
+//   }
   
-  doOperation();
+//   doOperation();
   
 
 

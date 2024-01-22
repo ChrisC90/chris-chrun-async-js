@@ -3,25 +3,56 @@ const delay = document.querySelector("#delay");
 const button = document.querySelector("#set-alarm");
 const output = document.querySelector("#output");
 
-function alarm(person, delay) {
+async function alarm(person, delay) {
   return new Promise((resolve, reject) => {
     if (delay < 0) {
-      throw new Error("Alarm delay must not be negative");
+      reject(new Error("Alarm delay must not be negative"));
+    } else {
+      setTimeout(() => {
+        resolve(`Wake up, ${person}!`);
+      }, delay);
     }
-    setTimeout(() => {
-      resolve(`Wake up, ${person}!`);
-    }, delay);
   });
 }
 
 button.addEventListener("click", async () => {
   try {
-    const message = await alarm(name.value, delay.value);
-    output.textContent = message;
+    const person = name.value;
+    const alarmDelay = parseInt(delay.value);
+
+    const result = await alarm(person, alarmDelay);
+    output.textContent = result;
   } catch (error) {
-    output.textContent = `Couldn't set alarm: ${error}`;
+    console.error(`Error: ${error.message}`);
   }
 });
+
+
+
+// const name = document.querySelector("#name");
+// const delay = document.querySelector("#delay");
+// const button = document.querySelector("#set-alarm");
+// const output = document.querySelector("#output");
+
+// function alarm(person, delay) {
+//   return new Promise((resolve, reject) => {
+//     if (delay < 0) {
+//       throw new Error("Alarm delay must not be negative");
+//     }
+//     setTimeout(() => {
+//       resolve(`Wake up, ${person}!`);
+//     }, delay);
+//   });
+// }
+
+// button.addEventListener("click", async () => {
+//   try {
+//     const message = await alarm(name.value, delay.value);
+//     output.textContent = message;
+//   } catch (error) {
+//     output.textContent = `Couldn't set alarm: ${error}`;
+//   }
+// });
 
 
 
